@@ -1,0 +1,46 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th class="w100">Preview de la imágen</th>
+        <th>Tamaño actual</th>
+        <th>Orientación</th>
+        <th>Entra en A4</th>
+        <th>Nuevo tamaño</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let image of images; index as i"
+        [ngClass]="{ 'table-danger': !imageService.fitsOnA4(image) }"
+      >
+        <td class="text-center">
+          <img [src]="image.src" width="200" class="avatar cursor" />
+        </td>
+        <td>
+          Ancho: {{ image.width }} pixeles <br />
+          Alto: {{ image.height }} pixeles <br />
+          Ratio: {{ imageService.getRatio(image) }}
+        </td>
+        <td>
+          <span *ngIf="imageService.isHorizontal(image)">Horizontal</span>
+          <span *ngIf="!imageService.isHorizontal(image)">Vertical</span>
+        </td>
+        <td>
+          <span *ngIf="imageService.fitsOnA4(image)">SI</span>
+          <span *ngIf="!imageService.fitsOnA4(image)">NO</span>
+        </td>
+        <td>
+          <div *ngIf="!imageService.fitsOnA4(image)">
+            Ancho:
+            {{ imageService.getNewDimensions(image).newWidth }} pixeles
+            <br />
+            Alto:
+            {{ imageService.getNewDimensions(image).newHeight }} pixeles
+          </div>
+          <div *ngIf="imageService.fitsOnA4(image)">N/A</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

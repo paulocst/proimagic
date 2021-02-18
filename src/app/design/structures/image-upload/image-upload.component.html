@@ -1,0 +1,14 @@
+<input
+  class="mb-3"
+  type="file"
+  (change)="selectFile($event)"
+  accept=".jpeg,.jpg"
+  multiple
+/>
+<app-image-layout
+  *ngIf="images.length > 0"
+  [images]="images"
+></app-image-layout>
+<div *ngIf="images.length <= 0" class="alert alert-primary" role="alert">
+  Para empezar seleccione sus imágenes
+</div>
